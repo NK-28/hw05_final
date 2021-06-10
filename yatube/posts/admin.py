@@ -23,6 +23,7 @@ class CommentAdmin(admin.ModelAdmin):
     list_filter = ("text",)
     empty_value_display = "-пусто-"
 
+
 class FollowAdmin(admin.ModelAdmin):
     list_display = ("author", "user")
     search_fields = ("user",)
