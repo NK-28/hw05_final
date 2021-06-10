@@ -205,7 +205,7 @@ class PostPagesTests(TestCase):
         self.assertRedirects(response, reverse(
             'post', kwargs={'username': self.user.username,
                             'post_id': self.post.id}))
-        self.assertEqual(Comment.objects.count(), comment_count+1)
+        self.assertEqual(Comment.objects.count(), comment_count + 1)
 
 
 class PaginatorViewsTest(TestCase):
