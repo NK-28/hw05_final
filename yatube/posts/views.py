@@ -39,7 +39,7 @@ def profile(request, username):
     page = paginator.get_page(page_number)
     form = CommentForm()
     following = False
-    if request.user is authenticate:
+    if request.user.is_authenticated:
         if author.following.filter(user=request.user).exists():
             following = True
     return render(
@@ -134,7 +134,7 @@ def follow_index(request):
 def profile_follow(request, username):
     user = request.user
     author = get_object_or_404(User, username=username)
-    if user == author:
+    if request.user == author:
         return redirect('profile', username=username)
     follow = Follow(user=user, author=author)
     if author.following.filter(user=request.user).exists():
