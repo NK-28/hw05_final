@@ -8,7 +8,7 @@ from .models import Comment, Follow, Group, Post, User
 
 
 def index(request):
-    post_list = Post.objects.all()
+    post_list = Post.objects.select_related('group')
     paginator = Paginator(post_list, settings.PER_PAGE_COUNT)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
@@ -126,7 +126,7 @@ def follow_index(request):
     paginator = Paginator(post, settings.PER_PAGE_COUNT)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
-    return render(request, "follow.html", {'page': page, 'user': user})
+    return render(request, 'follow.html', {'page': page, 'user': user})
 
 
 @login_required
@@ -135,10 +135,7 @@ def profile_follow(request, username):
     author = get_object_or_404(User, username=username)
     if request.user == author:
         return redirect('profile', username=username)
-    follow = Follow(user=user, author=author)
-    if author.following.filter(user=request.user).exists():
-        return redirect('profile', username=username)
-    follow.save()
+    follow, created = Follow.objects.get_or_create(user=user, author=author)
     return redirect('profile', username=username)
 
 
