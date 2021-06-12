@@ -135,7 +135,7 @@ def profile_follow(request, username):
     author = get_object_or_404(User, username=username)
     if request.user == author:
         return redirect('profile', username=username)
-    follow, created = Follow.objects.get_or_create(user=user, author=author)
+    Follow.objects.get_or_create(user=user, author=author)
     return redirect('profile', username=username)
 
 
