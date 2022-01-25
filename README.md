@@ -13,6 +13,7 @@ PostgreSQL
 Django ORM
 Запуск:
 
+
 Установка зависимостей:
 pip install -r requirements.txt
 Применение миграций:
